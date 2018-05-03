@@ -88,22 +88,22 @@
 
 
 
-<meta name="description" content="今天再次尝试使用IntelliJ IDEA搭建基于maven管理的SSH(Struts2,Spring,Hibernate)框架时,一直遇到一个问题,困扰了许久,问题如下:显示了路径映射有问题,去百度也看到了很多解决方案,大体有这么几条:1、首先检查Action名称是否写错。2、检查配置文件是否写错,struts有一个默认的配置文件,叫struts-default.xml,这个配置文件名字是不能错">
+<meta name="description" content="今天再次尝试使用IntelliJ IDEA搭建基于maven管理的SSH(Struts2,Spring,Hibernate)框架时,一直遇到一个问题,困扰了许久,问题如下:框架整合项目见:https://github.com/zqhf/SSHfram显示了路径映射有问题,去百度也看到了很多解决方案,大体有这么几条:1、首先检查Action名称是否写错。2、检查配置文件是否写错,struts有一个默">
 <meta name="keywords" content="技术分享">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用IntelliJ IDEA搭建基于maven管理的SSH(Struts2,Spring,Hibernate)框架小结">
 <meta property="og:url" content="https://zqhf.github.io/2018/04/23/article6/index.html">
 <meta property="og:site_name" content="zhaoqing的个人博客">
-<meta property="og:description" content="今天再次尝试使用IntelliJ IDEA搭建基于maven管理的SSH(Struts2,Spring,Hibernate)框架时,一直遇到一个问题,困扰了许久,问题如下:显示了路径映射有问题,去百度也看到了很多解决方案,大体有这么几条:1、首先检查Action名称是否写错。2、检查配置文件是否写错,struts有一个默认的配置文件,叫struts-default.xml,这个配置文件名字是不能错">
+<meta property="og:description" content="今天再次尝试使用IntelliJ IDEA搭建基于maven管理的SSH(Struts2,Spring,Hibernate)框架时,一直遇到一个问题,困扰了许久,问题如下:框架整合项目见:https://github.com/zqhf/SSHfram显示了路径映射有问题,去百度也看到了很多解决方案,大体有这么几条:1、首先检查Action名称是否写错。2、检查配置文件是否写错,struts有一个默">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://zqhf.github.io/2018/04/23/article6/1.PNG">
 <meta property="og:image" content="https://zqhf.github.io/2018/04/23/article6/3.PNG">
 <meta property="og:image" content="https://zqhf.github.io/2018/04/23/article6/2.PNG">
 <meta property="og:image" content="https://zqhf.github.io/2018/04/23/article6/4.PNG">
-<meta property="og:updated_time" content="2018-05-03T10:12:24.478Z">
+<meta property="og:updated_time" content="2018-05-03T11:10:13.161Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用IntelliJ IDEA搭建基于maven管理的SSH(Struts2,Spring,Hibernate)框架小结">
-<meta name="twitter:description" content="今天再次尝试使用IntelliJ IDEA搭建基于maven管理的SSH(Struts2,Spring,Hibernate)框架时,一直遇到一个问题,困扰了许久,问题如下:显示了路径映射有问题,去百度也看到了很多解决方案,大体有这么几条:1、首先检查Action名称是否写错。2、检查配置文件是否写错,struts有一个默认的配置文件,叫struts-default.xml,这个配置文件名字是不能错">
+<meta name="twitter:description" content="今天再次尝试使用IntelliJ IDEA搭建基于maven管理的SSH(Struts2,Spring,Hibernate)框架时,一直遇到一个问题,困扰了许久,问题如下:框架整合项目见:https://github.com/zqhf/SSHfram显示了路径映射有问题,去百度也看到了很多解决方案,大体有这么几条:1、首先检查Action名称是否写错。2、检查配置文件是否写错,struts有一个默">
 <meta name="twitter:image" content="https://zqhf.github.io/2018/04/23/article6/1.PNG">
 
 
@@ -425,7 +425,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,339
+                  1,351
                 </span>
               
 
@@ -462,7 +462,7 @@
       
 
       
-        <p>今天再次尝试使用IntelliJ IDEA搭建基于maven管理的SSH(Struts2,Spring,Hibernate)框架时,一直遇到一个问题,困扰了许久,问题如下:<br><img src="/2018/04/23/article6/1.PNG"><br>显示了路径映射有问题,去百度也看到了很多解决方案,大体有这么几条:<br>1、首先检查Action名称是否写错。<br>2、检查配置文件是否写错,struts有一个默认的配置文件,叫struts-default.xml,这个配置文件名字是不能错的,这个是规定。但是光这一个配置文件名字不错,可能还会有问题。<br>一般大一点的项目,配置文件有好多,可能会一个模块一个配置文件,但是一个项目中只有一个struts-default.xml,所以基本上都是把struts的配置写在各个模块的配置文件中,然后把在struts-default.xml中引用这些配置文件。<br>所以说,其他配置文件一定要在struts-default.xml中引用,而且名字不能出错。<br>3、配置文件中的包名不能重复,尤其是采用多个struts配置文件时,各个文件之间的package的name一定不能重复。<br>4、检查struts-default.xml配置文件所在路径,一般都在src能找到的路径下,而且要确认编译后是否在classes目录下,如下图:<br><img src="/2018/04/23/article6/3.PNG"><br>5、可以去掉namespace试试,namespace是action的目录,如果action指定目录的话,就在指定namespace下找,没有的话,就在默认的路径下找。<br>6、检查struts配置文件中有没有配置<welcome-file>,配置文件中需要配置自己项目的启动文件。<br>可是很奇怪的是,按以上几条都没有解决报错的问题,后来重新检查一下框架搭建的过程,发现tomcat的配置如果配置不正确,也可能出现这个报错,下图是我的tomcat配置:<br><img src="/2018/04/23/article6/2.PNG"><br>如果其中红色部分配置错了,也会导致这样的错误,归纳为第七种原因,解决办法就是配置正确。<br>但是,由于项目是基于maven管理的,当已经使用maven的打包命令(maven clean package)将项目部署到target目录下的classes目录下时,如果项目丝毫没有修改,再一次使用maven的命令,如：maven clean package或者maven clean install<br>命令,然后运行项目,会发现struts.xml配置文件没有进入classes目录,此时也会发现上述问题,这就奇怪了,执行两次maven的命令,原有的配置文件反而不见了。接着修改一下配置文件<br>中的内容,哪怕是增加一个空格,再运行命令mvn clean package,然后运行项目,结果配置文件又回来了。。。。这是什么原因呢？仔细观察,会发现,执行maven的打包命令,struts.xml这个文件并没有进入target的classes目录<br>而是在运行tomcat时,才会将配置文件加载到classes目录。因此在pom.xml文件中build需要如此配置,才能一块儿打包进入classes目录:<br><img src="/2018/04/23/article6/4.PNG"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">注:该配置还能解决有时候配置文件找不到导致bean也找不到等问题</span><br></pre></td></tr></table></figure></welcome-file></p>
+        <p>今天再次尝试使用IntelliJ IDEA搭建基于maven管理的SSH(Struts2,Spring,Hibernate)框架时,一直遇到一个问题,困扰了许久,问题如下:<br>框架整合项目见:<a href="https://github.com/zqhf/SSHfram" target="_blank" rel="noopener">https://github.com/zqhf/SSHfram</a><br><img src="/2018/04/23/article6/1.PNG"><br>显示了路径映射有问题,去百度也看到了很多解决方案,大体有这么几条:<br>1、首先检查Action名称是否写错。<br>2、检查配置文件是否写错,struts有一个默认的配置文件,叫struts-default.xml,这个配置文件名字是不能错的,这个是规定。但是光这一个配置文件名字不错,可能还会有问题。<br>一般大一点的项目,配置文件有好多,可能会一个模块一个配置文件,但是一个项目中只有一个struts-default.xml,所以基本上都是把struts的配置写在各个模块的配置文件中,然后把在struts-default.xml中引用这些配置文件。<br>所以说,其他配置文件一定要在struts-default.xml中引用,而且名字不能出错。<br>3、配置文件中的包名不能重复,尤其是采用多个struts配置文件时,各个文件之间的package的name一定不能重复。<br>4、检查struts-default.xml配置文件所在路径,一般都在src能找到的路径下,而且要确认编译后是否在classes目录下,如下图:<br><img src="/2018/04/23/article6/3.PNG"><br>5、可以去掉namespace试试,namespace是action的目录,如果action指定目录的话,就在指定namespace下找,没有的话,就在默认的路径下找。<br>6、检查struts配置文件中有没有配置<welcome-file>,配置文件中需要配置自己项目的启动文件。<br>可是很奇怪的是,按以上几条都没有解决报错的问题,后来重新检查一下框架搭建的过程,发现tomcat的配置如果配置不正确,也可能出现这个报错,下图是我的tomcat配置:<br><img src="/2018/04/23/article6/2.PNG"><br>如果其中红色部分配置错了,也会导致这样的错误,归纳为第七种原因,解决办法就是配置正确。<br>但是,由于项目是基于maven管理的,当已经使用maven的打包命令(maven clean package)将项目部署到target目录下的classes目录下时,如果项目丝毫没有修改,再一次使用maven的命令,如：maven clean package或者maven clean install<br>命令,然后运行项目,会发现struts.xml配置文件没有进入classes目录,此时也会发现上述问题,这就奇怪了,执行两次maven的命令,原有的配置文件反而不见了。接着修改一下配置文件<br>中的内容,哪怕是增加一个空格,再运行命令mvn clean package,然后运行项目,结果配置文件又回来了。。。。这是什么原因呢？仔细观察,会发现,执行maven的打包命令,struts.xml这个文件并没有进入target的classes目录<br>而是在运行tomcat时,才会将配置文件加载到classes目录。因此在pom.xml文件中build需要如此配置,才能一块儿打包进入classes目录:<br><img src="/2018/04/23/article6/4.PNG"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">注:该配置还能解决有时候配置文件找不到导致bean也找不到等问题</span><br></pre></td></tr></table></figure></welcome-file></p>
 <p>下面是maven打包时候的一些细节。<br>看看maven的源码有这么一段:<br> protected boolean checkForced()throws ArchiverException<br>    {<br>        if ( !isForced() &amp;&amp; isSupportingForced() &amp;&amp; isUptodate() )<br>        {<br>            getLogger().debug( “Archive “ + getDestFile() + “ is uptodate.” );<br>            return false;<br>        }<br>        return true;<br>    }<br>这个方法是校验是否强制重新创建jar包,只有当</p>
 <ol>
 <li>没有将 jar.forceCreation 参数设为true</li>
@@ -574,7 +574,7 @@ return true;
   <p><span>本文标题:</span><a href="/2018/04/23/article6/">使用IntelliJ IDEA搭建基于maven管理的SSH(Struts2,Spring,Hibernate)框架小结</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 zhaoqing 的个人博客">zhaoqing</a></p>
   <p><span>发布时间:</span>2018年04月23日 - 13:04</p>
-  <p><span>最后更新:</span>2018年05月03日 - 18:05</p>
+  <p><span>最后更新:</span>2018年05月03日 - 19:05</p>
   <p><span>原始链接:</span><a href="/2018/04/23/article6/" title="使用IntelliJ IDEA搭建基于maven管理的SSH(Struts2,Spring,Hibernate)框架小结">https://zqhf.github.io/2018/04/23/article6/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://zqhf.github.io/2018/04/23/article6/"  aria-label="复制成功！"></i></span>
   </p>
@@ -666,6 +666,10 @@ return true;
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/03/article7/" rel="prev" title="使用IntelliJ IDEA搭建基于maven管理的SSM(Spring,SpringMVC,Mybatis)整合shiro框架小结">
+                使用IntelliJ IDEA搭建基于maven管理的SSM(Spring,SpringMVC,Mybatis)整合shiro框架小结 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -768,7 +772,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -891,7 +895,7 @@ var jiathis_config={
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">11.8k</span>
+    <span title="Site words total count">14.1k</span>
   
 </div>
 
