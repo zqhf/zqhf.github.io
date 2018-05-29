@@ -1,0 +1,1883 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="技术分享," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="zhaoqing的个人博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前几天一直在研究java集成支付宝支付,今天就把研究成果分享一下,也便于以后遇到需要集成支付宝支付的时候,可以很快就集成出来。 1.准备一个支付宝账号,登录蚂蚁金服开放平台,按照下图步骤,创建好应用,添加相应需要开发集成的支付功能,搭建好开发环境。 1.1.此处重点讲一下配置应用环境时开发环境的配置,如下图 1.支付网关:图中所示的支付网关是正式环境的支付网关,也就是应用上线以后用真正的支付宝进行">
+<meta name="keywords" content="技术分享">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java集成支付宝支付">
+<meta property="og:url" content="https://zqhf.github.io/2018/05/29/article9/index.html">
+<meta property="og:site_name" content="zhaoqing的个人博客">
+<meta property="og:description" content="前几天一直在研究java集成支付宝支付,今天就把研究成果分享一下,也便于以后遇到需要集成支付宝支付的时候,可以很快就集成出来。 1.准备一个支付宝账号,登录蚂蚁金服开放平台,按照下图步骤,创建好应用,添加相应需要开发集成的支付功能,搭建好开发环境。 1.1.此处重点讲一下配置应用环境时开发环境的配置,如下图 1.支付网关:图中所示的支付网关是正式环境的支付网关,也就是应用上线以后用真正的支付宝进行">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://zqhf.github.io/2018/05/29/article9/1.PNG">
+<meta property="og:image" content="https://zqhf.github.io/2018/05/29/article9/2.PNG">
+<meta property="og:image" content="https://zqhf.github.io/2018/05/29/article9/3.PNG">
+<meta property="og:updated_time" content="2018-05-29T03:15:07.854Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java集成支付宝支付">
+<meta name="twitter:description" content="前几天一直在研究java集成支付宝支付,今天就把研究成果分享一下,也便于以后遇到需要集成支付宝支付的时候,可以很快就集成出来。 1.准备一个支付宝账号,登录蚂蚁金服开放平台,按照下图步骤,创建好应用,添加相应需要开发集成的支付功能,搭建好开发环境。 1.1.此处重点讲一下配置应用环境时开发环境的配置,如下图 1.支付网关:图中所示的支付网关是正式环境的支付网关,也就是应用上线以后用真正的支付宝进行">
+<meta name="twitter:image" content="https://zqhf.github.io/2018/05/29/article9/1.PNG">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://zqhf.github.io/2018/05/29/article9/"/>
+
+
+
+
+
+  <title>java集成支付宝支付 | zhaoqing的个人博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?2b9984a29327503a782aec560bb96de7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/zqhf" class="github-corner" aria-label="View source on Github">
+	<svg width="80" height="80" viewBox="0 0 250 250" style="fill:#70B7FD; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
+	<path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+	<path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+	<path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path>
+	</svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zhaoqing的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">知足者,不知足也,不知足者,知足也!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zqhf.github.io/2018/05/29/article9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhaoqing">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1521441321565&di=749b176a5859c5d7f57cf7939c19fd59&imgtype=0&src=http%3A%2F%2Fc.hiphotos.baidu.com%2Fzhidao%2Fwh%253D450%252C600%2Fsign%3D4d04cf72432309f7e73aa516473e20c5%2Ffaedab64034f78f0f57840157c310a55b2191ce0.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zhaoqing的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">java集成支付宝支付</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-29T10:16:06+08:00">
+                2018-05-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术分享/" itemprop="url" rel="index">
+                    <span itemprop="name">技术分享</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3,863
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  18
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>前几天一直在研究java集成支付宝支付,今天就把研究成果分享一下,也便于以后遇到需要集成支付宝支付的时候,可以很快就集成出来。</p>
+<h2 id="1-准备一个支付宝账号-登录蚂蚁金服开放平台-按照下图步骤-创建好应用-添加相应需要开发集成的支付功能-搭建好开发环境。"><a href="#1-准备一个支付宝账号-登录蚂蚁金服开放平台-按照下图步骤-创建好应用-添加相应需要开发集成的支付功能-搭建好开发环境。" class="headerlink" title="1.准备一个支付宝账号,登录蚂蚁金服开放平台,按照下图步骤,创建好应用,添加相应需要开发集成的支付功能,搭建好开发环境。"></a>1.准备一个支付宝账号,登录蚂蚁金服开放平台,按照下图步骤,创建好应用,添加相应需要开发集成的支付功能,搭建好开发环境。</h2><img src="/2018/05/29/article9/1.PNG">
+<h3 id="1-1-此处重点讲一下配置应用环境时开发环境的配置-如下图"><a href="#1-1-此处重点讲一下配置应用环境时开发环境的配置-如下图" class="headerlink" title="1.1.此处重点讲一下配置应用环境时开发环境的配置,如下图"></a>1.1.此处重点讲一下配置应用环境时开发环境的配置,如下图</h3><img src="/2018/05/29/article9/2.PNG">
+<p>1.支付网关:图中所示的支付网关是正式环境的支付网关,也就是应用上线以后用真正的支付宝进行支付的应用网关。我们在开发阶段不急集成正式环境<br>,所以蚂蚁金服特地为我们准备了沙箱环境,沙箱环境的支付网关为<a href="https://openapi.alipaydev.com/gateway.do,待应用开发完成,换成正式网关即可。" target="_blank" rel="noopener">https://openapi.alipaydev.com/gateway.do,待应用开发完成,换成正式网关即可。</a><br>2.应用网关:我们在生成订单以后,需要调用支付宝进行支付,如果支付成功,支付宝就会主动通知我们自身的系统支付结果,这个应用网关就是我们在调用<br>支付宝支付时传给支付宝的(支付宝有了他就可以把支付结果通知给我们)。应用网关必须外网可以访问,关于如何把内网转化为外网可以访问,网上有很多<br>教程,这里不做讲述。<br>3.授权回调地址:如果我们是服务商,替商家开发集成支付宝支付的时候,需要商家给我们授权,这就好比你用微信或者其他应用的信息登录另一款APP的时候<br>,会提示需要访问你的一些资料,需要你授权一样,这个地址,就是商家给我们授权以后,支付宝主动通知我们授权结果的地址。授权流程如下图<br><img src="/2018/05/29/article9/3.PNG"><br>我们需要拼接授权链接给商户,由商户点击链接进行授权<br>正式环境的授权链接；<a href="https://openauth.alipay.com/oauth2/appToAppAuth.htm?app_id=2015101400446982&amp;redirect_uri=http%3A%2F%2Fexample.com" target="_blank" rel="noopener">https://openauth.alipay.com/oauth2/appToAppAuth.htm?app_id=2015101400446982&amp;redirect_uri=http%3A%2F%2Fexample.com</a><br>其中app_id为正式环境的app_id,redirect_uri就是上述的授权回调地址<br>沙箱环境的授权链接:<a href="https://openauth.alipaydev.com/oauth2/appToAppAuth.htm?app_id=APPID&amp;redirect_uri=REDIRECT_URI" target="_blank" rel="noopener">https://openauth.alipaydev.com/oauth2/appToAppAuth.htm?app_id=APPID&amp;redirect_uri=REDIRECT_URI</a><br>其中app_id为沙箱环境的app_id,redirect_uri就是上述的授权回调地址<br>通过商家授权以后,最终我们会调用支付宝的接口获取到最终的授权令牌,通过该令牌替商家发起支付宝的下单,支付,退款,查询等请求。<br>4.接口加签方式:可以参照开放平台上的步骤,去下载加签工具,然后生成自己的私钥和公钥.并将公钥设置到此处,私钥自己严加保存。</p>
+<h2 id="2-开发环境搭建好以后-接下来就可以利用开发文档进行开发了-此处只以开发电脑网站支付功能为例进行讲解-其他功能类似。"><a href="#2-开发环境搭建好以后-接下来就可以利用开发文档进行开发了-此处只以开发电脑网站支付功能为例进行讲解-其他功能类似。" class="headerlink" title="2.开发环境搭建好以后,接下来就可以利用开发文档进行开发了.此处只以开发电脑网站支付功能为例进行讲解,其他功能类似。"></a>2.开发环境搭建好以后,接下来就可以利用开发文档进行开发了.此处只以开发电脑网站支付功能为例进行讲解,其他功能类似。</h2><p>开放平台上有各个功能的相关demo,下载下来以后集成到代码中即可,比较简单,下载下来demo以后<br>首先看看配置类<br>package cn.mrdear.pay.alipay;<br>import java.io.FileWriter;<br>import java.io.IOException;</p>
+<p>/<em> </em><br> <em>类名：AlipayConfig
+ </em>功能：基础配置类<br> <em>详细：设置帐户有关信息及返回路径
+ </em>修改日期：2018-05-29<br> <em>说明：
+ </em>以下代码只是为了方便商户测试而提供的样例代码，商户可以根据自己网站的需要，按照技术文档编写,并非一定要使用该代码。<br> <em>该代码仅供学习和研究支付宝接口使用，只是提供一个参考。
+ </em>/</p>
+<p>public class AliPayConfig {</p>
+<p>//↓↓↓↓↓↓↓↓↓↓请在这里配置您的基本信息↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓</p>
+<pre><code>// 应用ID,您的APPID，收款账号既是您的APPID对应支付宝账号
+public static String app_id = &quot;&quot;;
+
+// 商户私钥，您的PKCS8格式RSA2私钥
+public static String merchant_private_key = &quot;MIIFvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDGL8zD8CqRDLxwsA5QKVZqdsyKVIwHF4y2rclIpl5W5BB3caO7oV9f1i/MsLzAsSqHIsuqaidcYQ/bjwEn1Q2nCUcf2VA3HndC2yAj97uD65VMBYDFKvealWyvSfTtJIi4lnObXxJdPDv+4WbrxMgIBdohz/pGON82gAPzcMmZOb8Xxn3JqRe55Pjy6h1IaAPCar3TCqDMfLzrGo03OYr01Tu+aDVk/d32MDW2IbjEXaVrJHCqbIqfri3z6Ny8UisD3FAmb5YnWGscZub/Ese6abPORRzpLuzGxgBUTtPvPy5qfvqxOFaUh2Q+kiZxYobhFCH88yF82J0ddpPiM1i7AgMBAAECggEBAJWcjBX2fgvV84OWRJfbPPNOD4b14GeSLZXSh7sibOFndc7VqOcCIX+1r4v0d+l3VUWCzQEu9dvVIiV7RUIOoinQ5TJz2QxjIWEFDrRYVeR2udQT62vszdKSruN9Dzrec5/1Y/yMvs5HpHr7Kbkeams0D8GqwaK1WDxKU7E5Gddi3mihXiD0X8p7MupAmP2T7xcwm75Jw7OGkfUIIzNDvvZ00aZALuCc5LvsCZHE8UTdIjMbvon5vs9hVzuAQMsyg1LAPxwusIOajlxiBl6WUZOXTwIrHZzzyEdbvg6KNfePSht7zhNIxPPCd5ud7VGZXhQmOaRE7SIOmFU+a4M+Q4ECgYEA5hJQddDAfpUH4VRfw9klHKxdkFQQWufDkCaijZKC/yfR5Z4Ukr8OhTP4VdJo1XzzXLx5RCRjQB8Zk7t7Z4SY/UmxU+VqsPtva2Uw9CHmIUpfS2VB078f087h4gfbgOZHTmdn7r1XSkTi/6cqgWeXfIdU0PT9N51JlEN+fmhLqGECgYEA3IWXcZdY4S2VJmkh5vG0PXO11rn3/w8hsNd/9Kfv4K5kUK1fUDnFDeQGJqAEazkEjzLAZrohi3Ip6aoSOIDx+HR9vvnhzG+rRJ+6Js/nUnzzkzyNrq+1GO5unsyRb9uaSBYvJCHgHY9Xq3B5jcF4v3VTU8ATDHmNI4LOl2MmJpsCgYAurvSok00b4j2RGT+9S6heIxNxH72Z1IE4FL7THzF5eKj8gJEIHcBiguMW9vTSrOHspUmt6/w/nI/iDB7EKIGqk3Np5Jk7hCldj1DZmK9Lff3MHKW4w4U/wzDOXm3Jv/AkFpNePAkkRsoQuejEDTMNz6AELlHbIQ03CmL2X09KwQKBgQCB3b6hK5MxEQoME8/eVKtjoTgOG3jb4Upi/ZYiO6A9vhXfmSpPcaYFlyq0JnpTtsFjn2zFUooct//M1tZiJjXZrqi7BieeoIjJIhObdcZxwpojNH7vyBQreYb1x91CdZ43I7FhYv28CsWDdfpvq+dzQSHwaWYOa6rdpdQKPV6jTwKBgFaDOtJtAfWjaPOICUGhpg3pFTxCmVFWsKK2YuYYDxxkqj2L96v9sVTXmymMFWd9hTu+bhC1RxBl3hYkyKMTmWs2JZgroDFwpg4RNRnN3zQ2XstFSZy2zw95WsNTevch7UlBf3gjQFlMiTT3JY2OC+noiAVKozOJ7f6yFB+9IIAV&quot;;
+
+// 支付宝公钥,查看地址：https://openhome.alipay.com/platform/keyManage.htm 对应APPID下的支付宝公钥。
+public static String alipay_public_key = &quot;MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtqr5LqYeUWPHhvH3fKcblxc1TacHCuB5IMsyvG+BDBSd969zq41juHHMENZ2UM1tGdrx1wdJmdKNTUAGCDKR1W3LlTJs1ZeBGew4e8KHT4v2AZPRzw5W6ua/lIG7nGmkUoTE04of1ZScNsBBIvbcfC07HWagLawIZyW5FrvRAAHE6OfefogLLKhv2a3hdQFyabxwRMiyaUW6LNK7xXPU/P1JzKnuN0Rcu5jB0jWLZXFuknZp/miUddsXVYs3rGF5tASN3h7JskCuijs/qj1tyF/1HnbpILQA2g+aRjg2zjgo50Bzqiy1qIrVu5h/msEiyfx/Wm3oQillfMbwOQ9lEwIDAQAB&quot;;
+
+// 服务器异步通知页面路径  需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
+public static String notify_url = &quot;http://xxx/应用名/notify_url&quot;;
+
+// 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
+public static String return_url = &quot;http://xxx/应用名/return_url&quot;;
+// 服务器异步通知页面路径  需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
+//public static String notify_url = &quot;http://xxx/应用名/pay/notify_url&quot;;//PC支付时
+
+// 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
+//public static String return_url = &quot;http://xxx/应用名/pay/return_url&quot;;//PC支付时
+//授权回调地址
+public static String auth_return_url = &quot;http://xxx/应用名/auth_return_url&quot;;
+
+// 签名方式
+public static String sign_type = &quot;RSA2&quot;;
+
+// 字符编码格式
+public static String charset = &quot;utf-8&quot;;
+
+// 支付宝网关
+public static String gatewayUrl = &quot;https://openapi.alipaydev.com/gateway.do&quot;;
+
+// 支付宝日志路径
+public static String log_path = &quot;d:\\log&quot;;
+</code></pre><p>//↑↑↑↑↑↑↑↑↑↑请在这里配置您的基本信息↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑</p>
+<pre><code>/** 
+ * 写日志，方便测试（看网站需求，也可以改成把记录存入数据库）
+ * @param sWord 要写入日志里的文本内容
+ */
+public static void logResult(String sWord) {
+    FileWriter writer = null;
+    try {
+        writer = new FileWriter(log_path + &quot;alipay_log_&quot; + System.currentTimeMillis()+&quot;.txt&quot;);
+        writer.write(sWord);
+    } catch (Exception e) {
+        e.printStackTrace();
+    } finally {
+        if (writer != null) {
+            try {
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+</code></pre><p>}<br>配置类已加上详细注解,不做过多解释,接下来是controller,集成了下单支付,异步同步回调,订单查询,账单下载,交易退款,退款查询各个接口的调用,拿过来直接用即可</p>
+<p>package cn.mrdear.pay.controller;</p>
+<p>import java.io.File;<br>import java.io.FileOutputStream;<br>import java.io.IOException;<br>import java.io.InputStream;<br>import java.io.UnsupportedEncodingException;<br>import java.net.HttpURLConnection;<br>import java.net.MalformedURLException;<br>import java.net.URL;<br>import java.util.Date;<br>import java.util.HashMap;<br>import java.util.Iterator;<br>import java.util.Map;</p>
+<p>import javax.servlet.http.HttpServletRequest;<br>import javax.servlet.http.HttpServletResponse;</p>
+<p>import org.slf4j.Logger;<br>import org.slf4j.LoggerFactory;<br>import org.springframework.beans.factory.annotation.Autowired;<br>import org.springframework.stereotype.Controller;<br>import org.springframework.ui.Model;<br>import org.springframework.web.bind.annotation.RequestMapping;<br>import org.springframework.web.bind.annotation.RequestParam;<br>import org.springframework.web.bind.annotation.ResponseBody;</p>
+<p>import cn.mrdear.pay.alipay.AliPayConfig;<br>import cn.mrdear.pay.model.Orders;<br>import cn.mrdear.pay.service.OrderService;</p>
+<p>import com.alipay.api.AlipayApiException;<br>import com.alipay.api.AlipayClient;<br>import com.alipay.api.DefaultAlipayClient;<br>import com.alipay.api.internal.util.AlipaySignature;<br>import com.alipay.api.request.AlipayDataDataserviceBillDownloadurlQueryRequest;<br>import com.alipay.api.request.AlipayTradeCloseRequest;<br>import com.alipay.api.request.AlipayTradeFastpayRefundQueryRequest;<br>import com.alipay.api.request.AlipayTradePagePayRequest;<br>import com.alipay.api.request.AlipayTradeQueryRequest;<br>import com.alipay.api.request.AlipayTradeRefundRequest;<br>import com.alipay.api.response.AlipayDataDataserviceBillDownloadurlQueryResponse;<br>import com.alipay.api.response.AlipayTradeCloseResponse;<br>import com.alipay.api.response.AlipayTradeFastpayRefundQueryResponse;<br>import com.alipay.api.response.AlipayTradeQueryResponse;<br>import com.alipay.api.response.AlipayTradeRefundResponse;<br>import com.example.util.IMoocJSONResult;<br>@Controller<br>@RequestMapping(“pay”)<br>public class PcPayController {<br>    private static final Logger logger = LoggerFactory.getLogger(PcPayController.class);<br>    @Autowired<br>    private OrderService orderService;<br>    /**</p>
+<pre><code> * 即时到账下单接口
+ * @param request
+ * @param response
+ * @throws AlipayApiException 
+ * @throws IOException 
+ */
+@RequestMapping(&quot;payOrder&quot;)
+public void payOrder(HttpServletRequest req, Model mod, HttpServletResponse rep,
+        @RequestParam(value = &quot;goodId&quot;, required = true)String goodId) throws AlipayApiException, IOException{
+    logger.debug(&quot;进入获取订单信息接口方法&quot;);
+    //系统下单
+    Orders  param = new Orders();
+    param.setGoodId(goodId);
+    orderService.alipayOrder(param);   //生成订单信息，根据自己项目改动
+
+    //获得初始化的AlipayClient
+    AlipayClient alipayClient = new DefaultAlipayClient(AliPayConfig.gatewayUrl, AliPayConfig.app_id, AliPayConfig.merchant_private_key, &quot;json&quot;, AliPayConfig.charset, AliPayConfig.alipay_public_key, AliPayConfig.sign_type);
+
+    //设置请求参数
+    AlipayTradePagePayRequest alipayRequest = new AlipayTradePagePayRequest();
+    alipayRequest.setReturnUrl(AliPayConfig.return_url);
+    alipayRequest.setNotifyUrl(AliPayConfig.notify_url);
+
+    //商户订单号，商户网站订单系统中唯一订单号，必填
+    String out_trade_no = param.getTradeCode();
+    //付款金额，必填
+    String total_amount = param.getMoney().toString();
+    //订单名称，必填
+    String subject = param.getSubject();
+    //商品描述，可空
+    String body = param.getRemark();
+
+    alipayRequest.setBizContent(&quot;{\&quot;out_trade_no\&quot;:\&quot;&quot;+ out_trade_no +&quot;\&quot;,&quot; 
+            + &quot;\&quot;total_amount\&quot;:\&quot;&quot;+ total_amount +&quot;\&quot;,&quot; 
+            + &quot;\&quot;subject\&quot;:\&quot;&quot;+ subject +&quot;\&quot;,&quot; 
+            + &quot;\&quot;body\&quot;:\&quot;&quot;+ body +&quot;\&quot;,&quot; 
+            + &quot;\&quot;product_code\&quot;:\&quot;FAST_INSTANT_TRADE_PAY\&quot;}&quot;);
+
+    //请求
+    String result = alipayClient.pageExecute(alipayRequest).getBody();
+
+    rep.setContentType(&quot;text/html;charset=&quot; + AliPayConfig.charset);
+    rep.getWriter().write(result);//直接将完整的表单html输出到页面
+    rep.getWriter().flush();
+    rep.getWriter().close();
+}
+
+/**
+ * 同步回调路径return_url
+ * @param request
+ * @param response
+ * @throws AlipayApiException 
+ * @throws UnsupportedEncodingException 
+ */
+@RequestMapping(&quot;return_url&quot;)
+public String returnUrl(HttpServletRequest request, HttpServletResponse response) throws AlipayApiException, UnsupportedEncodingException{
+    logger.info(&quot;进入同步回调路径return_url&quot;);
+    //获取支付宝POST过来反馈信息
+    Map&lt;String,String&gt; params = new HashMap&lt;String,String&gt;();
+    Map requestParams = request.getParameterMap();
+    for (Iterator iter = requestParams.keySet().iterator(); iter.hasNext();) {
+        String name = (String) iter.next();
+        String[] values = (String[]) requestParams.get(name);
+        String valueStr = &quot;&quot;;
+        for (int i = 0; i &lt; values.length; i++) {
+            valueStr = (i == values.length - 1) ? valueStr + values[i]
+                    : valueStr + values[i] + &quot;,&quot;;
+        }
+        //乱码解决，这段代码在出现乱码时使用。
+        //valueStr = new String(valueStr.getBytes(&quot;ISO-8859-1&quot;), &quot;utf-8&quot;);
+        params.put(name, valueStr);
+    }
+    //切记alipaypublickey是支付宝的公钥，请去open.alipay.com对应应用下查看。
+    //boolean AlipaySignature.rsaCheckV1(Map&lt;String, String&gt; params, String publicKey, String charset, String sign_type)
+    boolean signVerified = AlipaySignature.rsaCheckV1(params, AliPayConfig.alipay_public_key, AliPayConfig.charset,AliPayConfig.sign_type);
+    if(signVerified) {
+        //商户订单号
+        String out_trade_no = new String(request.getParameter(&quot;out_trade_no&quot;).getBytes(&quot;ISO-8859-1&quot;),&quot;UTF-8&quot;);
+
+        //支付宝交易号
+        String trade_no = new String(request.getParameter(&quot;trade_no&quot;).getBytes(&quot;ISO-8859-1&quot;),&quot;UTF-8&quot;);
+
+        //付款金额
+        String total_amount = new String(request.getParameter(&quot;total_amount&quot;).getBytes(&quot;ISO-8859-1&quot;),&quot;UTF-8&quot;);
+
+        request.setAttribute(&quot;out_trade_no&quot;, out_trade_no);
+        request.setAttribute(&quot;trade_no&quot;, trade_no);
+        request.setAttribute(&quot;total_amount&quot;, total_amount);
+
+
+        logger.info(&quot;订单处理：系统订单号&quot; + out_trade_no + &quot;支付宝交易号：&quot; + trade_no);
+        //系统处理根据支付宝回调更改订单状态或者其他关联表的数据
+        Orders order = orderService.findOneByTradeCode(out_trade_no);
+        if(order == null){
+            signVerified = false;
+            request.setAttribute(&quot;signVerified&quot;, signVerified); 
+            request.setAttribute(&quot;reason&quot;, &quot;商户订单号不存在&quot;);
+            logger.error(&quot;系统订单：&quot;+ out_trade_no + &quot;不存在。&quot;);
+        }else{
+            if(!order.getMoney().toString().equals(total_amount)){
+                signVerified = false;
+                request.setAttribute(&quot;signVerified&quot;, signVerified); 
+                request.setAttribute(&quot;reason&quot;, &quot;付款金额不对&quot;);
+                return &quot;notify_url&quot;;
+            }
+
+
+            if(order.getTradeStatus() == 1){//判断当前订单是否已处理，避免重复处理
+                logger.info(&quot;系统订单：&quot;+ out_trade_no + &quot;无需重复处理。&quot;);
+            }else{
+                order.setTradeStatus(1);//修改订单状态为已支付
+                Date payedAt = new Date();
+                order.setTransactionId(trade_no);
+                order.setPayedAt(payedAt);
+                orderService.payOrder(order);
+                logger.info(&quot;系统订单：&quot;+ out_trade_no + &quot;成功支付。&quot;);
+            }
+
+        }
+    }else{
+        request.setAttribute(&quot;reason&quot;, &quot;验签失败&quot;);
+    }
+    request.setAttribute(&quot;signVerified&quot;, signVerified);
+    return &quot;return_url&quot;;
+}
+
+/**
+ * 异步回调路径notify_url
+ * @param request
+ * @param response
+ * @throws AlipayApiException 
+ * @throws UnsupportedEncodingException 
+ */
+@RequestMapping(&quot;notify_url&quot;)
+public void notifyUrl(HttpServletRequest request, HttpServletResponse response) throws AlipayApiException, UnsupportedEncodingException{
+    logger.info(&quot;进入异步回调路径notify_url&quot;);
+    //获取支付宝POST过来反馈信息
+    Map&lt;String,String&gt; params = new HashMap&lt;String,String&gt;();
+    Map requestParams = request.getParameterMap();
+    for (Iterator iter = requestParams.keySet().iterator(); iter.hasNext();) {
+        String name = (String) iter.next();
+        String[] values = (String[]) requestParams.get(name);
+        String valueStr = &quot;&quot;;
+        for (int i = 0; i &lt; values.length; i++) {
+            valueStr = (i == values.length - 1) ? valueStr + values[i]
+                    : valueStr + values[i] + &quot;,&quot;;
+        }
+        //乱码解决，这段代码在出现乱码时使用。
+        //valueStr = new String(valueStr.getBytes(&quot;ISO-8859-1&quot;), &quot;utf-8&quot;);
+        params.put(name, valueStr);
+    }
+    //切记alipaypublickey是支付宝的公钥，请去open.alipay.com对应应用下查看。
+    //boolean AlipaySignature.rsaCheckV1(Map&lt;String, String&gt; params, String publicKey, String charset, String sign_type)
+    boolean signVerified = AlipaySignature.rsaCheckV1(params, AliPayConfig.alipay_public_key, AliPayConfig.charset,AliPayConfig.sign_type);
+    if(signVerified) {
+        //商户订单号
+        String out_trade_no = new String(request.getParameter(&quot;out_trade_no&quot;).getBytes(&quot;ISO-8859-1&quot;),&quot;UTF-8&quot;);
+
+        //支付宝交易号
+        String trade_no = new String(request.getParameter(&quot;trade_no&quot;).getBytes(&quot;ISO-8859-1&quot;),&quot;UTF-8&quot;);
+
+        //付款金额
+        String total_amount = new String(request.getParameter(&quot;total_amount&quot;).getBytes(&quot;ISO-8859-1&quot;),&quot;UTF-8&quot;);
+
+        request.setAttribute(&quot;out_trade_no&quot;, out_trade_no);
+        request.setAttribute(&quot;trade_no&quot;, trade_no);
+        request.setAttribute(&quot;total_amount&quot;, total_amount);
+
+
+        logger.info(&quot;订单处理：系统订单号&quot; + out_trade_no + &quot;支付宝交易号：&quot; + trade_no);
+        //系统处理根据支付宝回调更改订单状态或者其他关联表的数据
+        Orders order = orderService.findOneByTradeCode(out_trade_no);
+        if(order == null){
+            signVerified = false;
+            request.setAttribute(&quot;signVerified&quot;, signVerified); 
+            request.setAttribute(&quot;reason&quot;, &quot;商户订单号不存在&quot;);
+            logger.error(&quot;系统订单：&quot;+ out_trade_no + &quot;不存在。&quot;);
+        }else{
+            if(!order.getMoney().toString().equals(total_amount)){
+                signVerified = false;
+                request.setAttribute(&quot;signVerified&quot;, signVerified); 
+                request.setAttribute(&quot;reason&quot;, &quot;付款金额不对&quot;);
+            }
+
+
+            if(order.getTradeStatus() == 1){//判断当前订单是否已处理，避免重复处理
+                logger.info(&quot;系统订单：&quot;+ out_trade_no + &quot;无需重复处理。&quot;);
+            }else{
+                order.setTradeStatus(1);//修改订单状态为已支付
+                Date payedAt = new Date();
+                order.setTransactionId(trade_no);
+                order.setPayedAt(payedAt);
+                orderService.payOrder(order);
+                logger.info(&quot;系统订单：&quot;+ out_trade_no + &quot;成功支付。&quot;);
+            }
+
+        }
+    }else{
+        request.setAttribute(&quot;reason&quot;, &quot;验签失败&quot;);
+    }
+    response.setContentType(&quot;text/html;charset=&quot; + AliPayConfig.charset);
+    try {
+        response.getWriter().write(&quot;success&quot;);//直接将完整的表单html输出到页面
+        response.getWriter().flush();
+        response.getWriter().close();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+
+/**
+ * 支付宝交易查询接口
+ * @param request
+ * @param response
+ * @throws UnsupportedEncodingException 
+ * @throws AlipayApiException 
+ */
+@RequestMapping(&quot;queryOrder&quot;)
+@ResponseBody
+public CommonResponse queryOrder(HttpServletRequest req, Model mod, HttpServletResponse rep,
+        @RequestParam(value = &quot;tradeCode&quot;, required = true)String tradeCode,
+        @RequestParam(value = &quot;tradeNo&quot;, required = true)String tradeNo) throws UnsupportedEncodingException, AlipayApiException{
+
+    CommonResponse cr = new CommonResponse();
+    AlipayClient alipayClient = new DefaultAlipayClient(AliPayConfig.gatewayUrl, AliPayConfig.app_id, AliPayConfig.merchant_private_key, &quot;json&quot;, AliPayConfig.charset, AliPayConfig.alipay_public_key, AliPayConfig.sign_type); //获得初始化的AlipayClient
+    AlipayTradeQueryRequest request = new AlipayTradeQueryRequest();//创建API对应的request类
+    request.setBizContent(&quot;{&quot; +
+            &quot;   \&quot;out_trade_no\&quot;:\&quot;&quot;+tradeCode+&quot;\&quot;,&quot; +
+            &quot;   \&quot;trade_no\&quot;:\&quot;&quot;+tradeNo+&quot;\&quot;&quot; +
+            &quot;  }&quot;);//设置业务参数
+    //根据response中的结果继续业务逻辑处理
+    String orderString = null;  
+    try {
+        //调用查询方法
+        AlipayTradeQueryResponse response = alipayClient.execute(request);//通过alipayClient调用API，获得对应的response类
+        if(response.isSuccess()){
+            System.out.println(&quot;调用成功&quot;);
+        } else {
+            System.out.println(&quot;调用失败&quot;);
+        }
+        orderString = response.getBody();//就是orderString 可以直接给客户端请求，无需再做处理。
+    } catch (AlipayApiException e) {
+        e.printStackTrace();
+    }
+    cr.setData(orderString);    //返回orderString
+    IMoocJSONResult.ok(cr);
+    return cr;
+}
+/**
+ * 支付宝交易退款接口
+ */
+@RequestMapping(&quot;refundOrder&quot;)
+@ResponseBody
+public void refundOrder(HttpServletRequest req,HttpServletResponse rep,
+        @RequestParam(value = &quot;tradeCode&quot;)String tradeCode,
+        @RequestParam(value = &quot;tradeNo&quot;)String tradeNo,
+        @RequestParam(value = &quot;refundAmount&quot;, required = true)String refundAmount,
+        @RequestParam(value = &quot;refundReason&quot;)String refundReason,
+        @RequestParam(value = &quot;outrequestNo&quot;, required = true)String outrequestNo) throws UnsupportedEncodingException, AlipayApiException{
+    //获得初始化的AlipayClient
+    AlipayClient alipayClient = new DefaultAlipayClient(AliPayConfig.gatewayUrl, AliPayConfig.app_id, AliPayConfig.merchant_private_key, &quot;json&quot;, AliPayConfig.charset, AliPayConfig.alipay_public_key, AliPayConfig.sign_type);
+    //设置请求参数
+    AlipayTradeRefundRequest alipayRequest = new AlipayTradeRefundRequest();
+    alipayRequest.setBizContent(&quot;{\&quot;out_trade_no\&quot;:\&quot;&quot;+ tradeCode +&quot;\&quot;,&quot; 
+            + &quot;\&quot;trade_no\&quot;:\&quot;&quot;+ tradeNo +&quot;\&quot;,&quot; 
+            + &quot;\&quot;refund_amount\&quot;:\&quot;&quot;+ refundAmount +&quot;\&quot;,&quot; 
+            + &quot;\&quot;refund_reason\&quot;:\&quot;&quot;+ refundReason +&quot;\&quot;,&quot; 
+            + &quot;\&quot;out_request_no\&quot;:\&quot;&quot;+ outrequestNo +&quot;\&quot;}&quot;);
+    //请求
+    AlipayTradeRefundResponse response = alipayClient.execute(alipayRequest);
+    if(response.isSuccess()){
+        System.out.println(&quot;调用成功&quot;);
+    } else {
+        System.out.println(&quot;调用失败&quot;);
+    }
+    String result = alipayClient.execute(alipayRequest).getBody();
+    //输出
+    try {
+        rep.getWriter().write(result);//直接将完整的表单html输出到页面
+        rep.getWriter().flush();
+        rep.getWriter().close();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+/**
+ * 支付宝交易退款查询接口
+ */
+@RequestMapping(&quot;queryrefundOrder&quot;)
+@ResponseBody
+public void queryrefundOrder(HttpServletRequest req,HttpServletResponse rep,
+        @RequestParam(value = &quot;tradeCode&quot;)String tradeCode,
+        @RequestParam(value = &quot;tradeNo&quot;)String tradeNo,
+        @RequestParam(value = &quot;outrequestNo&quot;, required = true)String outrequestNo) throws AlipayApiException, IOException{
+    //获得初始化的AlipayClient
+    AlipayClient alipayClient = new DefaultAlipayClient(AliPayConfig.gatewayUrl, AliPayConfig.app_id, AliPayConfig.merchant_private_key, &quot;json&quot;, AliPayConfig.charset, AliPayConfig.alipay_public_key, AliPayConfig.sign_type);
+    //设置请求参数
+    AlipayTradeFastpayRefundQueryRequest alipayRequest = new AlipayTradeFastpayRefundQueryRequest();
+    alipayRequest.setBizContent(&quot;{\&quot;out_trade_no\&quot;:\&quot;&quot;+ tradeCode +&quot;\&quot;,&quot; 
+            +&quot;\&quot;trade_no\&quot;:\&quot;&quot;+ tradeNo +&quot;\&quot;,&quot;
+            +&quot;\&quot;out_request_no\&quot;:\&quot;&quot;+ outrequestNo +&quot;\&quot;}&quot;);
+
+    //请求
+    AlipayTradeFastpayRefundQueryResponse response = alipayClient.execute(alipayRequest);
+    if(response.isSuccess()){
+        System.out.println(&quot;调用成功&quot;);
+    } else {
+        System.out.println(&quot;调用失败&quot;);
+    }
+    String result = alipayClient.execute(alipayRequest).getBody();
+    rep.getWriter().write(result);//直接将完整的表单html输出到页面
+    rep.getWriter().flush();
+    rep.getWriter().close();
+}
+/**
+ * 即时到账交易关闭接口
+ */
+@RequestMapping(&quot;tradeClose&quot;)
+@ResponseBody
+public void tradeClose(HttpServletRequest req,HttpServletResponse rep,
+        @RequestParam(value = &quot;tradeCode&quot;)String tradeCode,
+        @RequestParam(value = &quot;tradeNo&quot;)String tradeNo) throws AlipayApiException, IOException{
+    //获得初始化的AlipayClient
+    AlipayClient alipayClient = new DefaultAlipayClient(AliPayConfig.gatewayUrl, AliPayConfig.app_id, AliPayConfig.merchant_private_key, &quot;json&quot;, AliPayConfig.charset, AliPayConfig.alipay_public_key, AliPayConfig.sign_type);
+
+    //设置请求参数
+    AlipayTradeCloseRequest alipayRequest = new AlipayTradeCloseRequest();
+    alipayRequest.setBizContent(&quot;{\&quot;out_trade_no\&quot;:\&quot;&quot;+ tradeCode +&quot;\&quot;,&quot; +&quot;\&quot;trade_no\&quot;:\&quot;&quot;+ tradeNo +&quot;\&quot;}&quot;);
+
+    //请求
+    AlipayTradeCloseResponse response = alipayClient.execute(alipayRequest);
+    if(response.isSuccess()){
+        System.out.println(&quot;调用成功&quot;);
+    } else {
+        System.out.println(&quot;调用失败&quot;);
+    }
+    String result = alipayClient.execute(alipayRequest).getBody();
+    rep.getWriter().write(result);//直接将完整的表单html输出到页面
+    rep.getWriter().flush();
+    rep.getWriter().close();
+}
+/**
+ *  查询对账单下载地址接口
+ */
+@RequestMapping(&quot;tradedownloadurl&quot;)
+@ResponseBody
+public void tradedownloadurl(HttpServletRequest req,HttpServletResponse rep,
+        @RequestParam(value = &quot;billtype&quot;)String billType,
+        @RequestParam(value = &quot;billdate&quot;)String billDate) throws AlipayApiException, IOException{
+    //获得初始化的AlipayClient
+    AlipayClient alipayClient = new DefaultAlipayClient(AliPayConfig.gatewayUrl, AliPayConfig.app_id, AliPayConfig.merchant_private_key, &quot;json&quot;, AliPayConfig.charset, AliPayConfig.alipay_public_key, AliPayConfig.sign_type);
+    AlipayDataDataserviceBillDownloadurlQueryRequest alipayRequest = new AlipayDataDataserviceBillDownloadurlQueryRequest();//创建API对应的request类
+    alipayRequest.setBizContent(&quot;{&quot; +
+            &quot;    \&quot;bill_type\&quot;:\&quot;trade\&quot;,&quot; +
+            &quot;   \&quot;bill_date\&quot;:\&quot;&quot;+billDate+&quot;\&quot;&quot; +
+            &quot;  }&quot;);//设置业务参数
+    AlipayDataDataserviceBillDownloadurlQueryResponse response = alipayClient.execute(alipayRequest);
+    System.out.print(response.getBody());
+    String urlStr = response.getBillDownloadUrl();
+    downloadBillurl(urlStr);
+}
+/**
+ * 下载账单
+ */
+public void downloadBillurl(String urlStr){
+    //指定希望保存的文件路径
+    String filePath = &quot;d:/logo/fund_bill_20160405.csv&quot;;
+    URL url = null;
+    HttpURLConnection httpUrlConnection = null;
+    InputStream fis = null;
+    FileOutputStream fos = null;
+    try {
+        url = new URL(urlStr);
+        httpUrlConnection = (HttpURLConnection) url.openConnection();
+        httpUrlConnection.setConnectTimeout(5 * 1000);
+        httpUrlConnection.setDoInput(true);
+        httpUrlConnection.setDoOutput(true);
+        httpUrlConnection.setUseCaches(false);
+        httpUrlConnection.setRequestMethod(&quot;GET&quot;);
+        httpUrlConnection.setRequestProperty(&quot;Charsert&quot;, &quot;UTF-8&quot;);
+        httpUrlConnection.connect();
+        fis = httpUrlConnection.getInputStream();
+        byte[] temp = new byte[1024];
+        int b;
+        fos = new FileOutputStream(new File(filePath));
+        while ((b = fis.read(temp)) != -1) {
+            fos.write(temp, 0, b);
+            fos.flush();
+        }
+    } catch (MalformedURLException e) {
+        e.printStackTrace();
+    } catch (IOException e) {
+        e.printStackTrace();
+    } finally {
+        try {
+            if(fis!=null) fis.close();
+            if(fos!=null) fos.close();
+            if(httpUrlConnection!=null) httpUrlConnection.disconnect();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre><p>}<br>到此,集成支付宝的电脑网站支付功能就集成完毕了。总结一下：<br>其实集成支付宝的支付很简单,基本上只要熟悉开发文档,一步步来,再加上我给出的这两段代码,基本上就可以轻松集成。<br>下节准备研究一下集成微信支付,微信支付貌似需要商户才能集成,个人不能够集成,这需要研究一下。</p>
+
+      
+    </div>
+    
+    
+    
+
+	
+      <div>
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2018/05/29/article9/">java集成支付宝支付</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 zhaoqing 的个人博客">zhaoqing</a></p>
+  <p><span>发布时间:</span>2018年05月29日 - 10:05</p>
+  <p><span>最后更新:</span>2018年05月29日 - 11:05</p>
+  <p><span>原始链接:</span><a href="/2018/05/29/article9/" title="java集成支付宝支付">https://zqhf.github.io/2018/05/29/article9/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://zqhf.github.io/2018/05/29/article9/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+      </div>
+    
+	
+    
+	
+      <div>
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      </div>
+    
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="zhaoqing 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="zhaoqing 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/技术分享/" rel="tag"><i class="fa fa-tag"></i> 技术分享</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/06/article8/" rel="next" title="看武侠电视剧《马鸣风萧萧》的一些感触">
+                <i class="fa fa-chevron-left"></i> 看武侠电视剧《马鸣风萧萧》的一些感触
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zNTI4MS8xMTgxNw=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1521441321565&di=749b176a5859c5d7f57cf7939c19fd59&imgtype=0&src=http%3A%2F%2Fc.hiphotos.baidu.com%2Fzhidao%2Fwh%253D450%252C600%2Fsign%3D4d04cf72432309f7e73aa516473e20c5%2Ffaedab64034f78f0f57840157c310a55b2191ce0.jpg"
+                alt="zhaoqing" />
+            
+              <p class="site-author-name" itemprop="name">zhaoqing</p>
+              <p class="site-description motion-element" itemprop="description">个人博客</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zqhf" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1848122689@outlook.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.alloyteam.com/nav/" title="Web前端导航" target="_blank">Web前端导航</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.36zhen.com/t?id=3448" title="前端书籍资料" target="_blank">前端书籍资料</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://ife.baidu.com/" title="百度前端技术学院" target="_blank">百度前端技术学院</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://wf.uisdc.com/cn/" title="google前端开发基础" target="_blank">google前端开发基础</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-准备一个支付宝账号-登录蚂蚁金服开放平台-按照下图步骤-创建好应用-添加相应需要开发集成的支付功能-搭建好开发环境。"><span class="nav-number">1.</span> <span class="nav-text">1.准备一个支付宝账号,登录蚂蚁金服开放平台,按照下图步骤,创建好应用,添加相应需要开发集成的支付功能,搭建好开发环境。</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-此处重点讲一下配置应用环境时开发环境的配置-如下图"><span class="nav-number">1.1.</span> <span class="nav-text">1.1.此处重点讲一下配置应用环境时开发环境的配置,如下图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-开发环境搭建好以后-接下来就可以利用开发文档进行开发了-此处只以开发电脑网站支付功能为例进行讲解-其他功能类似。"><span class="nav-number">2.</span> <span class="nav-text">2.开发环境搭建好以后,接下来就可以利用开发文档进行开发了.此处只以开发电脑网站支付功能为例进行讲解,其他功能类似。</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhaoqing</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">19.0k</span>
+  
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+-->
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <script type="text/javascript" src="/js/src/love.js"></script>
+</body>
+</html>
