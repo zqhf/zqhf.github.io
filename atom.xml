@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zqhf.github.io/"/>
-  <updated>2018-05-29T03:15:07.854Z</updated>
+  <updated>2018-06-11T05:47:29.197Z</updated>
   <id>https://zqhf.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>java集成solrCloud(solr+zookeeper集群)遇到的几个问题</title>
+    <link href="https://zqhf.github.io/2018/06/11/article10/"/>
+    <id>https://zqhf.github.io/2018/06/11/article10/</id>
+    <published>2018-06-11T05:12:33.000Z</published>
+    <updated>2018-06-11T05:47:29.197Z</updated>
+    
+    <content type="html"><![CDATA[<p>今天在做java集成solrCloud(solr+zookeeper集群)时,遇到了几个问题,特在此做下记录,以便以后遇到类似的问题时方便查阅。</p><h2 id="1-出现的问题如下"><a href="#1-出现的问题如下" class="headerlink" title="1.出现的问题如下:"></a>1.出现的问题如下:</h2><img src="/2018/06/11/article10/2.png"><p>提示在xx秒内连不上zookeeper服务器,查看zookeeper服务器发现状态是正常启动的,配置也没问题,这就奇怪了,于是查看zookeeper的日志,发现有如下报错:<br><img src="/2018/06/11/article10/1.png"><br>也就是说很诡异的服务不断断开和重连,在网上百度了一通,原因众说纷纭,依然没有解决,后来在网上的一个问答里面不显眼的地方才看到了一位网友说的问题:<br>服务器上zookeeper的jar包版本与客户端的jar包不匹配(我的服务器上zookeeper是3.4.6,客户端是3.4.5)，于是修改jar包使之匹配，问题解决。在此要感谢那位热心的网友。</p><h2 id="2-客户端出现的问题如下"><a href="#2-客户端出现的问题如下" class="headerlink" title="2.客户端出现的问题如下:"></a>2.客户端出现的问题如下:</h2><img src="/2018/06/11/article10/3.PNG"><p>查看服务器日志,有如下报错<br><img src="/2018/06/11/article10/4.PNG"><br>于是就知道问题所在了,只需修改solr的配置文件schema.xml使之与客户端字段相同即可。如下图,注意大小写<br><img src="/2018/06/11/article10/5.PNG"><br>最后总结一下:<br>java集成solrCloud(solr+zookeeper集群)在网上有很多教程也有现成的代码,相对来说比较简单,但是可能从中也会遇到很多奇怪的问题,这就需要我们认真仔细并多查阅资料,总结经验,这样以后就可以避免类似的问题。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;今天在做java集成solrCloud(solr+zookeeper集群)时,遇到了几个问题,特在此做下记录,以便以后遇到类似的问题时方便查阅。&lt;/p&gt;
+&lt;h2 id=&quot;1-出现的问题如下&quot;&gt;&lt;a href=&quot;#1-出现的问题如下&quot; class=&quot;headerlink&quot; t
+      
+    
+    </summary>
+    
+      <category term="技术分享" scheme="https://zqhf.github.io/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
+    
+    
+      <category term="技术分享" scheme="https://zqhf.github.io/tags/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
+    
+  </entry>
   
   <entry>
     <title>java集成支付宝支付</title>
