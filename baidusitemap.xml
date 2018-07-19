@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>https://zqhf.github.io/2018/03/05/hello-world/</loc>
+    <lastmod>2018-07-19T03:50:28.055Z</lastmod>
+    <data>
+        <display>
+        <title>关于js闭包的理解和概述</title>
+        <pubTime>2018-03-05T05:19:54.594Z</pubTime>
+        
+        <tag>前端</tag>
+         
+         
+           
+             
+              <breadCrumb title="前端-JavaScript" url="https://zqhf.github.io/categories/%E5%89%8D%E7%AB%AF-JavaScript/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://zqhf.github.io/2018/05/29/article9/</loc>
     <lastmod>2018-07-02T01:40:59.332Z</lastmod>
     <data>
@@ -171,26 +191,6 @@
         <display>
         <title>JavaScript的五个难点总结</title>
         <pubTime>2018-03-22T01:24:19.000Z</pubTime>
-        
-        <tag>前端</tag>
-         
-         
-           
-             
-              <breadCrumb title="前端-JavaScript" url="https://zqhf.github.io/categories/%E5%89%8D%E7%AB%AF-JavaScript/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://zqhf.github.io/2018/03/05/hello-world/</loc>
-    <lastmod>2018-03-22T01:37:33.255Z</lastmod>
-    <data>
-        <display>
-        <title>关于js闭包的理解和概述</title>
-        <pubTime>2018-03-05T05:19:54.594Z</pubTime>
         
         <tag>前端</tag>
          
