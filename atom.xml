@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zqhf.github.io/"/>
-  <updated>2018-07-19T04:19:32.255Z</updated>
+  <updated>2018-07-25T09:56:37.452Z</updated>
   <id>https://zqhf.github.io/</id>
   
   <author>
@@ -17,13 +17,13 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>上传本地项目到Github的详细步骤</title>
+    <title>上传本地项目到Github的详细步骤(附EHcache配置文件的配置参数说明)</title>
     <link href="https://zqhf.github.io/2018/07/19/article11/"/>
     <id>https://zqhf.github.io/2018/07/19/article11/</id>
     <published>2018-07-19T04:12:49.000Z</published>
-    <updated>2018-07-19T04:19:32.255Z</updated>
+    <updated>2018-07-25T09:56:37.452Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="将本地项目上传到Github的几个详细步骤"><a href="#将本地项目上传到Github的几个详细步骤" class="headerlink" title="将本地项目上传到Github的几个详细步骤"></a>将本地项目上传到Github的几个详细步骤</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1.git init</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2.git add .</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3.git commit -m &quot;first commit&quot;  (first commit 本次提交的内容)</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4.git remote add origin https://github.com/852172891/test3.git (地址换成你建的项目的地址，不知道的话看下边 项目地址是哪个的图)</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">5.git pull origin master(先拉下来合并)</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">6.git push -u origin master(合并后提交)</span><br></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<h2 id="将本地项目上传到Github的几个详细步骤"><a href="#将本地项目上传到Github的几个详细步骤" class="headerlink" title="将本地项目上传到Github的几个详细步骤"></a>将本地项目上传到Github的几个详细步骤</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1.git init</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2.git add .</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3.git commit -m &quot;first commit&quot;  (first commit 本次提交的内容)</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4.git remote add origin https://github.com/852172891/test3.git (地址换成你建的项目的地址,不知道的话看下边 项目地址是哪个的图)</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">5.git pull origin master(先拉下来合并)</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">6.git push -u origin master(合并后提交)</span><br></pre></td></tr></table></figure><p>ehcache.xml的各参数说明。<br>diskStore ：指定数据存储位置,可指定磁盘中的文件夹位置<br>defaultCache ： 默认的管理策略<br>以下属性是必须的：name： Cache的名称,必须是唯一的(ehcache会把这个cache放到HashMap里)。maxElementsInMemory：在内存中缓存的element的最大数目。<br>maxElementsOnDisk：在磁盘上缓存的element的最大数目,默认值为0,表示不限制。<br>eternal：设定缓存的elements是否永远不过期。如果为true,则缓存的数据始终有效,如果为false那么还要根据timeToIdleSeconds,timeToLiveSeconds判断。<br>overflowToDisk： 如果内存中数据超过内存限制,是否要缓存到磁盘上。<br>以下属性是可选的：<br>timeToIdleSeconds： 对象空闲时间,指对象在多长时间没有被访问就会失效。只对eternal为false的有效。默认值0,表示一直可以访问。<br>timeToLiveSeconds： 对象存活时间,指对象从创建到失效所需要的时间。只对eternal为false的有效。默认值0,表示一直可以访问。<br>diskPersistent： 是否在磁盘上持久化。指重启jvm后,数据是否有效。默认为false。<br>diskExpiryThreadIntervalSeconds： 对象检测线程运行时间间隔。标识对象状态的线程多长时间运行一次。<br>diskSpoolBufferSizeMB： DiskStore使用的磁盘大小,默认值30MB。每个cache使用各自的DiskStore。<br>memoryStoreEvictionPolicy： 如果内存中数据超过内存限制,向磁盘缓存时的策略。默认值LRU,可选FIFO、LFU。<br>缓存的3 种清空策略 ：<br>FIFO：first in first out (先进先出).<br>LFU：Less Frequently Used (最少使用).意思是一直以来最少被使用的。缓存的元素有一个hit 属性,hit 值最小的将会被清出缓存。<br>LRU：Least Recently Used(最近最少使用). (ehcache 默认值).缓存的元素有一个时间戳,当缓存容量满了,而又需要腾出地方来缓存新的元素的时候,那么现有缓存元素中时间戳离当前时间最远的元素将被清出缓存。 </p>]]></content>
     
     <summary type="html">
     
