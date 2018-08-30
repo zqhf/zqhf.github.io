@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="个人博客" />
+  <meta name="keywords" content="技术分享," />
 
 
 
@@ -88,16 +88,20 @@
 
 
 
-<meta name="description" content="个人博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="zhaoqing的个人博客">
-<meta property="og:url" content="https://zqhf.github.io/archives/2018/05/index.html">
+<meta name="description" content="1.hashmap简介:HashMap 是一个散列表,它存储的内容是键值对(key-value)映射。HashMap 继承于AbstractMap,实现了Map、Cloneable、java.io.Serializable接口。HashMap 的实现不是同步的,这意味着它不是线程安全的。它的key、value都可以为null。此外,HashMap中的映射不是有序的。HashMap 的实例有两个参数">
+<meta name="keywords" content="技术分享">
+<meta property="og:type" content="article">
+<meta property="og:title" content="简要说说JDK1.8之前hashmap的实现原理">
+<meta property="og:url" content="https://zqhf.github.io/2018/08/30/article12/index.html">
 <meta property="og:site_name" content="zhaoqing的个人博客">
-<meta property="og:description" content="个人博客">
+<meta property="og:description" content="1.hashmap简介:HashMap 是一个散列表,它存储的内容是键值对(key-value)映射。HashMap 继承于AbstractMap,实现了Map、Cloneable、java.io.Serializable接口。HashMap 的实现不是同步的,这意味着它不是线程安全的。它的key、value都可以为null。此外,HashMap中的映射不是有序的。HashMap 的实例有两个参数">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://zqhf.github.io/2018/08/30/article12/1.jpg">
+<meta property="og:updated_time" content="2018-08-30T07:41:06.764Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="zhaoqing的个人博客">
-<meta name="twitter:description" content="个人博客">
+<meta name="twitter:title" content="简要说说JDK1.8之前hashmap的实现原理">
+<meta name="twitter:description" content="1.hashmap简介:HashMap 是一个散列表,它存储的内容是键值对(key-value)映射。HashMap 继承于AbstractMap,实现了Map、Cloneable、java.io.Serializable接口。HashMap 的实现不是同步的,这意味着它不是线程安全的。它的key、value都可以为null。此外,HashMap中的映射不是有序的。HashMap 的实例有两个参数">
+<meta name="twitter:image" content="https://zqhf.github.io/2018/08/30/article12/1.jpg">
 
 
 
@@ -127,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="https://zqhf.github.io/archives/2018/05/"/>
+  <link rel="canonical" href="https://zqhf.github.io/2018/08/30/article12/"/>
 
 
 
 
 
-  <title>归档 | zhaoqing的个人博客</title>
+  <title>简要说说JDK1.8之前hashmap的实现原理 | zhaoqing的个人博客</title>
   
 
 
@@ -162,7 +166,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 	<a href="https://github.com/zqhf" class="github-corner" aria-label="View source on Github">
 	<svg width="80" height="80" viewBox="0 0 250 250" style="fill:#70B7FD; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
@@ -316,148 +320,307 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zqhf.github.io/2018/08/30/article12/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhaoqing">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1521441321565&di=749b176a5859c5d7f57cf7939c19fd59&imgtype=0&src=http%3A%2F%2Fc.hiphotos.baidu.com%2Fzhidao%2Fwh%253D450%252C600%2Fsign%3D4d04cf72432309f7e73aa516473e20c5%2Ffaedab64034f78f0f57840157c310a55b2191ce0.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zhaoqing的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">简要说说JDK1.8之前hashmap的实现原理</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-30T15:00:29+08:00">
+                2018-08-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 14 篇日志。 继续努力。
-      </span>
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术分享/" itemprop="url" rel="index">
+                    <span itemprop="name">技术分享</span>
+                  </a>
+                </span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2018">2018</h1>
-          </div>
-        
-        
 
-        
+          
+            
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/29/article9/" itemprop="url">
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
               
-                <span itemprop="name">java集成支付宝支付</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,089
+                </span>
               
-            </a>
-        
-      </h2>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-29T10:16:06+08:00"
-              content="2018-05-29" >
-          05-29
-        </time>
-      </div>
+              
+                <span class="post-meta-divider">|</span>
+              
 
-    </header>
-  </article>
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
 
+          
 
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/06/article8/" itemprop="url">
-              
-                <span itemprop="name">看武侠电视剧《马鸣风萧萧》的一些感触</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-06T17:59:11+08:00"
-              content="2018-05-06" >
-          05-06
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/03/article7/" itemprop="url">
-              
-                <span itemprop="name">使用IntelliJ IDEA搭建基于maven管理的SSM(Spring,SpringMVC,Mybatis)整合shiro框架小结</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-03T18:31:49+08:00"
-              content="2018-05-03" >
-          05-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <h2 id="1-hashmap简介"><a href="#1-hashmap简介" class="headerlink" title="1.hashmap简介:"></a>1.hashmap简介:</h2><p>HashMap 是一个散列表,它存储的内容是键值对(key-value)映射。<br>HashMap 继承于AbstractMap,实现了Map、Cloneable、java.io.Serializable接口。<br>HashMap 的实现不是同步的,这意味着它不是线程安全的。它的key、value都可以为null。此外,HashMap中的映射不是有序的。<br>HashMap 的实例有两个参数影响其性能：“初始容量” 和 “加载因子”。容量 是哈希表中桶的数量,初始容量 只是哈希表在创建时的容量。加载因子 是哈希表在其容量自动增加之前可以达到多满的一种尺度。当哈希表中的条目数超出了加载因子与当前容量的乘积时,则要对该哈希表进行 rehash 操作（即重建内部数据结构）,从而哈希表将具有大约两倍的桶数。<br>通常,默认加载因子是 0.75, 这是在时间和空间成本上寻求一种折衷。加载因子过高虽然减少了空间开销,但同时也增加了查询成本（在大多数 HashMap 类的操作中,包括 get 和 put 操作,都反映了这一点）。在设置初始容量时应该考虑到映射中所需的条目数及其加载因子,以便最大限度地减少 rehash 操作次数。如果初始容量大于最大条目数除以加载因子,则不会发生 rehash 操作。</p>
+<h2 id="2-hashmap实现原理"><a href="#2-hashmap实现原理" class="headerlink" title="2.hashmap实现原理:"></a>2.hashmap实现原理:</h2><p>简单来说,HashMap由数组+链表组成的,数组是HashMap的主体,链表则是主要为了解决哈希冲突而存在的,如果定位到的数组位置不含链表（当前entry的next指向null）,那么对于查找,添加等操作很快,仅需一次寻址即可；如果定位到的数组包含链表,对于添加操作,其时间复杂度为O(n),首先遍历链表,存在即覆盖,否则新增；对于查找操作来讲,仍需遍历链表,然后通过key对象的equals方法逐一比对查找。所以,性能考虑,HashMap中的链表出现越少,性能才会越好。</p>
+<h3 id="2-1-hashmap中的put方法："><a href="#2-1-hashmap中的put方法：" class="headerlink" title="2.1.hashmap中的put方法："></a>2.1.hashmap中的put方法：</h3><p>put元素时首先根据key的hash值和equals方法找到是否有完全一样的key对象,若有,则替换原有的旧值并返回旧值，若无，则新增一个Entry对象放在table[i]处，如果原table[i]处存在元素，则将新增的Entry对象放置在链表头，通过next指向原有的Entry对象，形成链表结构。</p>
+<h3 id="2-2-hashmap中的get方法："><a href="#2-2-hashmap中的get方法：" class="headerlink" title="2.2.hashmap中的get方法："></a>2.2.hashmap中的get方法：</h3><p>首先计算出key的hash值，根据hash值计算出元素存放的bucket位置，如果元素的hash值相同，代表存放的bucket位置相同，由于链表存放的是键值对对象，此时再根据key的equals方法，遍历链表，找到相同的键值对对象，并返回值。</p>
+<h2 id="3-hash碰撞"><a href="#3-hash碰撞" class="headerlink" title="3.hash碰撞"></a>3.hash碰撞</h2><p>前述说如果key的hash值相同，即key的hashcode相同，此时元素存放的bucket位置相同，这就会导致hash碰撞，hashmap采用数组+链表的结构来解决hash碰撞，虽然key的hashcode相同（暂时记为1），但是不一定equals，遇到hashcode相同的情况，由于hashmap底层的Entry对象有一个很重要的属性next，那么此时如果原来bucket位置存在元素A，记为Entry[1]=A，当元素B进来的时候，此时记B.next=A,Entry[1]=B,当元素C进来时，此时记C.next=B,Entry[1]=C，以此类推。也就是说新增的元素会存放在链表头，通过新元素的next指向原有的元素。这就形成链表，进而解决hash碰撞。<br>注：在JDK1.8中，解决hash碰撞用到了红黑树的数据结构，当链表长度超过8时，链表会自动转换为红黑树，下面附上红黑树的五个基本特性：<br>1.所有节点要么是黑色，要么是白色。<br>2.根节点永远是黑色。<br>3.所有叶子节点都是黑色的（这儿的叶子节点只NIL节点）。<br>4.每个红色节点的两个子节点一定都是黑色的。<br>5.从任意一个节点到其子树中每个叶子节点的路径都包含相同数量的黑色节点。<br><img src="/2018/08/30/article12/1.jpg"></p>
 
       
-
     </div>
+    
+    
+    
+
+	
+      <div>
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2018/08/30/article12/">简要说说JDK1.8之前hashmap的实现原理</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 zhaoqing 的个人博客">zhaoqing</a></p>
+  <p><span>发布时间:</span>2018年08月30日 - 15:08</p>
+  <p><span>最后更新:</span>2018年08月30日 - 15:08</p>
+  <p><span>原始链接:</span><a href="/2018/08/30/article12/" title="简要说说JDK1.8之前hashmap的实现原理">https://zqhf.github.io/2018/08/30/article12/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://zqhf.github.io/2018/08/30/article12/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+      </div>
+    
+	
+    
+	
+      <div>
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      </div>
+    
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="zhaoqing 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="zhaoqing 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/技术分享/" rel="tag"><i class="fa fa-tag"></i> 技术分享</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/19/article11/" rel="next" title="上传本地项目到Github的详细步骤(附EHcache配置文件的配置参数说明)">
+                <i class="fa fa-chevron-left"></i> 上传本地项目到Github的详细步骤(附EHcache配置文件的配置参数说明)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
 
 
           </div>
@@ -465,6 +628,15 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zNTI4MS8xMTgxNw=="></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -485,8 +657,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -599,6 +780,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-hashmap简介"><span class="nav-number">1.</span> <span class="nav-text">1.hashmap简介:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-hashmap实现原理"><span class="nav-number">2.</span> <span class="nav-text">2.hashmap实现原理:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-hashmap中的put方法："><span class="nav-number">2.1.</span> <span class="nav-text">2.1.hashmap中的put方法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-hashmap中的get方法："><span class="nav-number">2.2.</span> <span class="nav-text">2.2.hashmap中的get方法：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-hash碰撞"><span class="nav-number">3.</span> <span class="nav-text">3.hash碰撞</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -775,6 +972,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -803,6 +1004,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
